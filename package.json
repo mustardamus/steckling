@@ -10,10 +10,11 @@
     "node": "*"
   },
   "scripts"    : {
-    "init" : "npm i -g forever && npm i -g coffee-script",
-    "start": "forever -c coffee -w --watchDirectory ./app/server start app/server/init.coffee",
-    "stop" : "forever stop app/server/init.coffee",
-    "test" : "echo test"
+    "init"   : "npm i -g forever && npm i -g coffee-script",
+    "restart": "forever -c coffee -w --watchDirectory ./app/server start app/server/init.coffee",
+    "stop"   : "forever stop app/server/init.coffee",
+    "start"  : "coffee app/server/init.coffee",
+    "test"   : "echo test"
   },
 
   "dependencies": {
