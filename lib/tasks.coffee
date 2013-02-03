@@ -5,7 +5,7 @@ log  = require('logule').init(module, 'TASKS')
 exports.route = ->
   rootDir   = "#{__dirname}/.."
   tasksDir  = "#{rootDir}/tasks"
-  taskName  = process.argv[2] or 'list'
+  taskName  = process.argv[2] or 'help'
   taskFiles = fs.readdirSync(tasksDir)
   taskFound = false
 
@@ -19,11 +19,12 @@ exports.route = ->
   if taskFound
     taskObj = require("#{tasksDir}/#{taskName}")
 
-    if taskObj.run
+    if taskObj.config and taskObj.run
       taskLog = require('logule').init(module, taskName.toUpperCase())
+      taskCfg = taskObj.config(task)
 
-      taskObj.run(task, taskLog)
+      taskObj.run(taskCfg, taskLog)
     else
-      log.error "Task '#{taskName}' needs a export function 'run':   exports.run = (task, log) ->"
+      log.error "Task '#{taskName}' needs 'config' and 'run' functions"
   else
     log.error "Unknown task '#{taskName}' (./tasks/#{taskName}.coffee)"

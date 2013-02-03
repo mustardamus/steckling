@@ -5,6 +5,9 @@ uglify   = require('uglify-js')
 cleancss = require('clean-css')
 config   = require('../app/server/config')
 
+exports.config = (task) ->
+  task.usage('deploy')
+
 exports.run = (task, log) ->
   publicDir = "#{__dirname}/../public"
   assetsDir = "#{publicDir}/assets"
