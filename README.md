@@ -40,7 +40,7 @@ development environment of my dreams. Still in development. Always will be.
   - event based on front and backend
   - create app skeleton
   - create collections, models, etc. with prompt
-  - back and frontend TDD
+  - frontend mocha TDD
   - create public/assets dir if it does not exist
   - favicon in public dir
 

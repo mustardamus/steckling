@@ -11,10 +11,8 @@ describe 'tasks routing', ->
       fs.mkdirSync(tmpDir)
 
     fs.writeFileSync ttFile, """
-    exports.config = (task) ->
-      true
-    exports.run = (task, log) ->
-      true
+    exports.config = (t)    -> true
+    exports.run    = (t, l) -> true
     """
 
   after ->
