@@ -13,10 +13,11 @@ exports.run = (task, log) ->
     task.help()
     return
 
-  taskDesc = create.things[task.thing]
+  taskDesc   = create.things[task.thing]
+  createFunc = create["create_#{task.thing}"]
 
-  if taskDesc and create["create_#{task.thing}"]
+  if taskDesc and createFunc
     log.info taskDesc
-    create["create_#{task.thing}"](task.name, task, log)
+    createFunc(task.name, task, log)
   else
     log.error "Create description/function for '#{task.thing}' not found"

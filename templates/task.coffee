@@ -5,6 +5,7 @@
 
 exports.config = (task) ->
   task
+    .usage('taskname [options]')
     .option('-a, --arg1 [str]', 'Arg1 is a string with no default')
     .option('-b, --arg2 [str]', 'Arg2 is a string with default', 'defaultValue')
     .option('-c, --arg3', 'Arg3 is a boolean')

@@ -1,11 +1,16 @@
 expect = require('expect.js')
 fs     = require('fs')
-tasks  = require('../../lib/tasks')
 
-tmpDir = "#{__dirname}/../../tmp"
-ttFile = "#{tmpDir}/testtask.coffee"
+rootDir = "#{__dirname}/../.."
+tmpDir  = "#{rootDir}/tmp"
+muteLog =
+  info : ->
+  error: ->
 
 describe 'tasks routing', ->
+  tasks  = require('../../lib/tasks')
+  ttFile = "#{tmpDir}/testtask.coffee"
+
   before ->
     unless fs.existsSync(tmpDir)
       fs.mkdirSync(tmpDir)
@@ -29,3 +34,23 @@ describe 'tasks routing', ->
 
     expect(testTask.config()).to.be true
     expect(testTask.run()).to.be true
+
+describe 'tasks', ->
+  tasksDir = "#{rootDir}/tasks"
+  
+  describe 'new', ->
+    newTask  = require("#{tasksDir}/new")
+    taskMock = { thing: 'task', name : 'deleteme' }
+    testFile = "#{tasksDir}/#{taskMock.name}.coffee"
+
+    after ->
+      fs.unlinkSync(testFile)
+
+    it 'should be defined', ->
+      expect(typeof newTask.config).to.be 'function'
+      expect(typeof newTask.run).to.be 'function'
+
+    it 'should create a new task template', ->
+      newTask.run(taskMock, muteLog)
+
+      expect(fs.existsSync(testFile)).to.be true
