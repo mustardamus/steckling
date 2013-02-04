@@ -2,10 +2,9 @@ fs   = require('fs')
 task = require('commander')
 log  = require('logule').init(module, 'TASKS')
 
-exports.route = ->
-  rootDir   = "#{__dirname}/.."
-  tasksDir  = "#{rootDir}/tasks"
-  taskName  = process.argv[2] or 'help'
+exports.route = (taskName = null, tasksDir = null) ->
+  tasksDir  = tasksDir or "#{__dirname}/../tasks"
+  taskName  = taskName or process.argv[2] or 'help'
   taskFiles = fs.readdirSync(tasksDir)
   taskFound = false
 
@@ -24,7 +23,11 @@ exports.route = ->
       taskCfg = taskObj.config(task)
 
       taskObj.run(taskCfg, taskLog)
+      
+      return taskObj
     else
       log.error "Task '#{taskName}' needs 'config' and 'run' functions"
   else
     log.error "Unknown task '#{taskName}' (./tasks/#{taskName}.coffee)"
+
+  return false

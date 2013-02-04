@@ -14,7 +14,7 @@
     "restart": "forever -c coffee -w --watchDirectory ./app/server start app/server/init.coffee",
     "stop"   : "forever stop app/server/init.coffee",
     "start"  : "coffee app/server/init.coffee",
-    "test"   : "mocha --compilers coffee:coffee-script --ui bdd --reporter spec --watch test/server/*"
+    "test"   : "mocha --compilers coffee:coffee-script --ui bdd --reporter spec test/server/*"
   },
 
   "dependencies": {
