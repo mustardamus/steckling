@@ -23,18 +23,17 @@ development environment of my dreams. Still in development. Always will be.
       routes.coffee
       init.coffee
 
-  tasks/
-  lib/
-  vendor/
-    client/
-    server/
-  test/
-    client/
-    server/
+    tasks/
+    lib/
+    vendor/
+      client/
+      server/
+    test/
+      client/
+      server/
 
 ## Todos
 
-  - list all tasks
   - minimal backend that just serves the index and JSON
   - backbone/mongoose CRUD first
   - what views for frontend?
@@ -42,9 +41,8 @@ development environment of my dreams. Still in development. Always will be.
   - create app skeleton
   - create collections, models, etc. with prompt
   - back and frontend TDD
-  - sass for css
-  - compile and minify css and js
-  - create public dir if it does not exist
+  - create public/assets dir if it does not exist
+  - favicon in public dir
 
 ## Tricks
   - use SublimeText
@@ -81,3 +79,11 @@ To see the log messages start it optionally with Coffee:
 ## Asset Pipeline
 
 Mincer does the asset pipeline.
+
+## Testing
+
+Testing is done with Mocha and Expect, both, on the server and client side.
+
+Run server side test:
+
+    npm test

@@ -10,11 +10,11 @@
     "node": "*"
   },
   "scripts"    : {
-    "init"   : "npm i -g forever && npm i -g coffee-script",
+    "init"   : "npm i -g forever && npm i -g coffee-script && npm i -g mocha",
     "restart": "forever -c coffee -w --watchDirectory ./app/server start app/server/init.coffee",
     "stop"   : "forever stop app/server/init.coffee",
     "start"  : "coffee app/server/init.coffee",
-    "test"   : "echo test"
+    "test"   : "mocha --compilers coffee:coffee-script --ui bdd --reporter spec --watch test/server/*"
   },
 
   "dependencies": {
@@ -29,6 +29,8 @@
   "devDependencies": {
     "commander"    : "*",
     "logule"       : "*",
-    "forever"      : "*"
+    "forever"      : "*",
+    "mocha"        : "*",
+    "expect.js"    : "*"
   }
 }
