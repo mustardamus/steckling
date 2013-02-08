@@ -69,12 +69,12 @@ Create a task template like so:
 
 When any file in ./app/server changes, Forever Module will restart the server. Control it via NPM:
 
-    npm restart
+    npm start
     npm stop
 
 To see the log messages start it optionally with Coffee:
 
-    npm start
+    coffee app/server/init.coffee
 
 ## Asset Pipeline
 
