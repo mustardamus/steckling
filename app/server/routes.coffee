@@ -1,6 +1,6 @@
 exports.routes = (app) ->
   controllers = [
-    'application'
+    'application'  # will be available as @applicationController, etc. (keep scope!)
   ]
 
   for controller in controllers
