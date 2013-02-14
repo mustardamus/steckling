@@ -7,8 +7,8 @@ routes  = require('./routes')
 app = express()
 env = new mincer.Environment()
 
-config.config(app)
-routes.routes(app)
+config.config(app, express)
+routes.routes(app, express)
 
 for path in app.get('assets')
   env.appendPath(path)
