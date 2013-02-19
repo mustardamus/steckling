@@ -11,7 +11,10 @@ procrastdo.Router = Backbone.Router.extend
     'tasks/:id/destroy': 'taskDestroy'
 
   homePage: ->
-    console.log 'client homepage route', @tasksCollection
+    task = new procrastdo.models.task { title: 'meh procrast' }
+    view = new procrastdo.views.tasks_show { model: task, el: '#wrapper' }
+
+    task.trigger 'change'
 
   taskIndex: ->
     @tasksCollection.fetch
