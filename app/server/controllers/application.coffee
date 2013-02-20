@@ -5,7 +5,7 @@ class applicationController
   constructor: (app) ->
     @app = app
 
-  routeIndex: (req, res) ->
+  index: (req, res) ->
     indexFile = "#{__dirname}/../../client/layouts/default.html"
 
     fs.readFile indexFile, 'utf-8', (err, data) ->

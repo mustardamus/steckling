@@ -7,6 +7,7 @@ exports.config = (app, express) ->
       'vendor/client/js'
       'vendor/client/css'
       'vendor/client/images'
+      'test/client'
     ]
 
     app.use express.bodyParser()
