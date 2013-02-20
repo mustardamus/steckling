@@ -5,7 +5,7 @@
 This is my 3rd attempt to write a nice Node.js framework. It's the final attempt to create the
 development environment of my dreams. Still in development. Always will be.
 
-### Application structure
+## Application structure
   
     .
     └─ app/                             # application specific files
@@ -22,7 +22,7 @@ development environment of my dreams. Still in development. Always will be.
           ├─ views/                     # backbone/mustache views
           ├─ bundle.js.coffee           # main js bundle required by default.html
           ├─ init.js.coffee             # define app namespace, start backbone router
-          └─ router.js.coffee           # client site routes definitions
+          └─ router.js.coffee           # client side routes definitions
       └─ server/                        # server specific files
         └─ controllers/                 # server controllers
           ├─ application.coffee         # main application controller, serves default.html
@@ -30,7 +30,27 @@ development environment of my dreams. Still in development. Always will be.
         ├─ models/                      # server models
         ├─ init.coffee                  # init server application
         ├─ config.coffee                # server configurations, asset paths
-        └─ routes.coffee                # server route definitions
+        └─ routes.coffee                # server routes definitions
+    └─ test/                            # application testing files
+      └─ client/                        # tests for the client, served on /test
+        ├─ collections/                 # backbone collections tests
+        ├─ models/                      # backbone models tests
+        ├─ views/                       # backbone/mustache views tests
+        └─ testbundle.js.coffee         # bundle included by the test controller
+      └─ server/                        # tests for the server, run with npm test
+        ├─ controllers/                 # controller tests
+        ├─ models/                      # models tests
+        └─ tasks/                       # tests for custom tasks
+    └─ vendor/                          # 3rd party libs
+      └─ client/                        # all 3rd party libs required by client
+        ├─ js/                          # like jquery, backbone, mocha, ...
+        └─ css/                         # like kube.css
+      └─ server/                        # 3rd party libs required by the server
+    └─ public/                          # static files will be serverd from this directory
+      └─ assets/                        # asset bundles will be deployed to this directory
+    ├─ package.json                     # npm definitions, tasks and dependencies
+    ├─ LICENSE                          # license of the code
+    └─ README.md                        # readme for the application in markdown
 
 
 ## Tasks
