@@ -1,8 +1,7 @@
 procrastdo.models.task = Backbone.Model.extend
   urlRoot : '/tasks'
   defaults:
-    title: 'default title'
-    description: 'default description'
+    title: 'do something'
 
   initialize: ->
     #_.bindAll @, ''

@@ -3,15 +3,19 @@ fs  = require('fs')
 
 class tasksController
   constructor: (app) ->
-    @app = app
+    @app  = app
+    @Task = require('../models/task')(app)
 
   index: (req, res) ->
-    log.info 'tasks index'
-    res.json([{id: 1, title: 'tester 1'}])
+    @Task.find (err, results) ->
+      res.json results
 
   create: (req, res) ->
-    log.info 'task create'
-    res.json({id: 3, title: 'created'})
+    task = new @Task(req.body)
+
+    task.save (err, task) ->
+      log.info 'task create', req.body
+      res.json(task.toJSON())
 
   read: (req, res) ->
     log.info 'task read', req.params.id

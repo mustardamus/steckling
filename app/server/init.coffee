@@ -1,13 +1,20 @@
-log     = require('logule').init(module, 'SERVER')
-express = require('express')
-mincer  = require('mincer')
-config  = require('./config')
-routes  = require('./routes')
+log      = require('logule').init(module, 'SERVER')
+express  = require('express')
+mincer   = require('mincer')
+mongoose = require('mongoose')
+config   = require('./config')
+routes   = require('./routes')
 
 app = express()
 env = new mincer.Environment()
 
 config.config(app, express)
+
+mongoose.connect app.get('dburl')
+app.set 'db', mongoose
+mongoose.connection.once 'open', ->
+  log.info "Connected to MongoDB #{app.get('dburl')}"
+
 routes.routes(app, express)
 
 for path in app.get('assets')

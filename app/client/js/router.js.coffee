@@ -10,6 +10,8 @@ procrastdo.Router = Backbone.Router.extend
     @taskControlsView = new procrastdo.views.tasks_controls
       el        : '#tasks-controls'
 
+    @tasksCollection.fetch()
+
   routes:
     ''                 : 'homePage'
     'tasks'            : 'taskIndex'

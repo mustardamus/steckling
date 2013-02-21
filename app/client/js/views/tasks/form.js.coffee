@@ -16,7 +16,7 @@ procrastdo.views.tasks_form = Backbone.View.extend
     @on 'hide', @onFormHide
 
     @render()
-    
+
     @formEl  = $('#tasks-form', @$el)
     @inputEl = $('#task-title', @$el)
 
@@ -39,9 +39,11 @@ procrastdo.views.tasks_form = Backbone.View.extend
     if taskTitle.length
       task = new procrastdo.models.task { title: taskTitle }
 
-      @collection.add task
-      @trigger 'hide'
-      @inputEl.val ''
-      procrastdo.routes.navigate '/'
+      task.save {},
+        success: =>
+          @collection.add task
+          @trigger 'hide'
+          @inputEl.val ''
+          procrastdo.routes.navigate '/'
     
     false
