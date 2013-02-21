@@ -1,20 +1,22 @@
 procrastdo.Router = Backbone.Router.extend
   initialize: ->
     @tasksCollection = new procrastdo.collections.tasks
+    @tasksFormView   = new procrastdo.views.tasks_form
+      collection: @tasksCollection
+      el        : '#tasks-list'
+    @tasksListViewl  = new procrastdo.views.tasks_list
+      collection: @tasksCollection
+      el        : '#tasks'
 
   routes:
-    ''              : 'homePage'
-    'tasks'         : 'taskIndex'
-    'tasks/new'     : 'taskNew'
-    'tasks/:id'     : 'taskRead'
-    'tasks/:id/edit': 'taskUpdate'
+    ''                 : 'homePage'
+    'tasks'            : 'taskIndex'
+    'tasks/new'        : 'taskNew'
+    'tasks/:id'        : 'taskRead'
+    'tasks/:id/edit'   : 'taskUpdate'
     'tasks/:id/destroy': 'taskDestroy'
 
   homePage: ->
-    task = new procrastdo.models.task { title: 'meh procrast' }
-    view = new procrastdo.views.tasks_show { model: task, el: '#wrapper' }
-
-    task.trigger 'change'
 
   taskIndex: ->
     @tasksCollection.fetch
@@ -22,12 +24,7 @@ procrastdo.Router = Backbone.Router.extend
         console.log('task index', @tasksCollection.models)
 
   taskNew: ->
-    task = new procrastdo.models.task { title: 'huha' }
-    task.save
-      success: =>
-        console.log 'task saved', task
-
-    console.log 'create new task', task
+    @tasksFormView.trigger 'show'
 
   taskRead: (id) ->
     task = @tasksCollection.get(id)

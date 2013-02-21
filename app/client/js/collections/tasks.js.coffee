@@ -3,4 +3,4 @@ procrastdo.collections.tasks = Backbone.Collection.extend
   model: procrastdo.models.task
   
   initialize: ->
-    #_.bindAll @, ''
+    
