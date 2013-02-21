@@ -1,12 +1,14 @@
 procrastdo.Router = Backbone.Router.extend
   initialize: ->
-    @tasksCollection = new procrastdo.collections.tasks
-    @tasksFormView   = new procrastdo.views.tasks_form
+    @tasksCollection  = new procrastdo.collections.tasks
+    @tasksFormView    = new procrastdo.views.tasks_form
       collection: @tasksCollection
       el        : '#tasks-list'
-    @tasksListViewl  = new procrastdo.views.tasks_list
+    @tasksListViewl   = new procrastdo.views.tasks_list
       collection: @tasksCollection
-      el        : '#tasks'
+      el        : '#tasks-list'
+    @taskControlsView = new procrastdo.views.tasks_controls
+      el        : '#tasks-controls'
 
   routes:
     ''                 : 'homePage'
