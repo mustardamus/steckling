@@ -15,7 +15,7 @@ exports.config = (app, express) ->
 
   app.configure 'development', ->
     app.set 'port', 5000
-    app.set 'dburl', 'mongodb://localhost/steckling'
+    app.set 'dburl', 'mongodb://localhost/steckling2'
     app.use express.errorHandler({ dumpExceptions: true, showStack: true })
 
   app.configure 'production', ->

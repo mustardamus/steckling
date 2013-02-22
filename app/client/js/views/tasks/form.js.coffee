@@ -2,8 +2,7 @@ procrastdo.views.tasks_form = Backbone.View.extend
   template: """
     <li id="tasks-form">
       <form>
-        <input type="text" id="task-title">
-        <input type="submit" value="Save" class="btn">
+        <input type="text" id="task-title" autocomplete="off">
       </form>
     </li>
   """
@@ -45,5 +44,8 @@ procrastdo.views.tasks_form = Backbone.View.extend
           @trigger 'hide'
           @inputEl.val ''
           procrastdo.routes.navigate '/'
+    else
+      @trigger 'hide'
+      procrastdo.routes.navigate '/'
     
     false
