@@ -2,7 +2,8 @@ procrastdo.views.tasks_item = Backbone.View.extend
   tagName: 'li'
   className: 'task-item'
   template: """
-    <div class="task-title">{{title}}</div>
+    <span class="task-done task-done-no">No</span>
+    <span class="task-title">{{title}}</a>
   """
 
   events: null

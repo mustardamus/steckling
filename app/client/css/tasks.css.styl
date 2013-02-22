@@ -1,0 +1,73 @@
+#tasks
+  text-align: left
+
+#tasks-list
+  list-style: none
+  line-height: 1.78em
+  margin: 0
+
+  li.task-item
+    font-family: 'Handlee', cursive;
+    font-size: 1.78em
+    border-top: 2px dotted rgba(251, 170, 63, 0.7)
+    padding: 13px 20px 10px 20px
+    color: #222
+    position: relative
+
+    &:first-child
+      border-top: none
+
+    .task-done
+      position: absolute
+      top: 10px
+      left: center
+      display: block
+      height: 26px
+      width: 26px
+      background: url('/assets/haken.png')
+      text-indent: -30000px
+
+    .task-title
+      padding-left: 38px
+
+    &:hover
+      cursor: pointer
+
+      .task-done
+        background-position: 0 -26px
+
+    .task-done-yes
+      background-position: 0 26px
+
+#tasks-form
+  border-top: 2px dotted rgba(251, 170, 63, 0.9)
+
+  form
+    margin: 0
+
+    input#task-title
+      width: 100%
+      font-family: 'Handlee', cursive;
+      font-size: 1.78em
+      padding: 13px 20px 10px 58px
+      background: rgba(255, 255, 255, 0.2)
+
+#tasks-controls
+  border-top: 2px dotted rgba(0, 0, 0, 0.3)
+  
+  #tasks-add
+    display: block
+    width: 100%
+    text-align: center
+    font-family: 'Poly', serif
+    font-size: 1.9em
+    text-decoration: none
+    padding: 20px 0
+    background: rgba(0, 0, 0, 0.18)
+
+    &:hover
+      background: rgba(0, 0, 0, 0.2)
+
+    span
+      padding-left: 34px
+      background: url('/assets/plus.png') no-repeat left 2px
