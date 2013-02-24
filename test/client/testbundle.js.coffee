@@ -1,3 +1,12 @@
-describe 'client tests', ->
-  it 'should have subfolders', ->
-    expect(true).to.be true
+#= require jquery
+#= require underscore
+#= require backbone
+#= require mustache
+
+#= require ./../../app/client/js/init
+
+#= require_tree ./../../app/client/js/models
+#= require_tree ./../../app/client/js/views
+#= require_tree ./../../app/client/js/collections
+
+#= require_tree ./models

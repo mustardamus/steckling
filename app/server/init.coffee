@@ -34,14 +34,10 @@ app.get '/test', (req, res) =>
       </head>
       <body>
         <div id="mocha"></div>
-        <script src="/assets/jquery.js"></script>
         <script src="/assets/expect.js"></script>
         <script src="/assets/mocha.js"></script>
-
         <script>mocha.setup('bdd');</script>
-        
         <script src="/assets/testbundle.js"></script>
-        
         <script>mocha.run();</script>
       </body>
     </html>
