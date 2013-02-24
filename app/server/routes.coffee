@@ -11,6 +11,24 @@ exports.routes = (app, express) ->
     ctrlName     = "#{controller}Controller"
     @[className] = require("./controllers/#{controller}")
     @[ctrlName]  = new @[className](app)
+
+  crud = (res) =>
+    ctrl = @["#{res}Controller"]
+
+    app.get "/#{res}", (req, res) ->
+      ctrl.index(req, res)
+
+    app.post "/#{res}", (req, res) ->
+      ctrl.create(req, res)
+
+    app.get "/#{res}/:id", (req, res) ->
+      ctrl.read(req, res)
+
+    app.put "/#{res}/:id", (req, res) ->
+      ctrl.update(req, res)
+
+    app.delete "/#{res}/:id", (req, res) ->
+      ctrl.destroy(req, res)
       
 
   app.get '/', (req, res) =>
@@ -20,33 +38,5 @@ exports.routes = (app, express) ->
     @testController.index(req, res)
 
 
-  app.get '/tasks', (req, res) =>
-    @tasksController.index(req, res)
-
-  app.post '/tasks', (req, res) =>
-    @tasksController.create(req, res)
-
-  app.get '/tasks/:id', (req, res) =>
-    @tasksController.read(req, res)
-
-  app.put '/tasks/:id', (req, res) =>
-    @tasksController.update(req, res)
-
-  app.delete '/tasks/:id', (req, res) =>
-    @tasksController.destroy(req, res)
-
-
-  app.get '/sheets', (req, res) =>
-    @sheetsController.index(req, res)
-
-  app.post '/sheets', (req, res) =>
-    @sheetsController.create(req, res)
-
-  app.get '/sheets/:id', (req, res) =>
-    @sheetsController.read(req, res)
-
-  app.put '/sheets/:id', (req, res) =>
-    @sheetsController.update(req, res)
-
-  app.delete '/sheets/:id', (req, res) =>
-    @sheetsController.destroy(req, res)
+  crud 'tasks'
+  crud 'sheets'
