@@ -36,6 +36,7 @@ app.get '/test', (req, res) =>
         <div id="mocha"></div>
         <script src="/assets/expect.js"></script>
         <script src="/assets/mocha.js"></script>
+        <script src="/assets/jquery.js"></script>
         <script>mocha.setup('bdd');</script>
         <script src="/assets/testbundle.js"></script>
         <script>mocha.run();</script>

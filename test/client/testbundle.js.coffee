@@ -1,7 +1,11 @@
-#= require jquery
+# jquery, mocha end expect already loaded
+
 #= require underscore
 #= require backbone
 #= require mustache
+
+
+#= require jquery.mockjax
 
 #= require ./../../app/client/js/init
 
