@@ -14,3 +14,4 @@
 #= require_tree ./../../app/client/js/collections
 
 #= require_tree ./models
+#= require_tree ./collections
