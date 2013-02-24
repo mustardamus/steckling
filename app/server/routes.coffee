@@ -1,7 +1,6 @@
 exports.routes = (app, express) ->
   controllers = [
     'application'  # will be available as @applicationController, etc. (keep scope!)
-    'test'
     'tasks'
     'sheets'
   ]
@@ -33,10 +32,6 @@ exports.routes = (app, express) ->
 
   app.get '/', (req, res) =>
     @applicationController.index(req, res)
-
-  app.get '/test', (req, res) =>
-    @testController.index(req, res)
-
 
   crud 'tasks'
   crud 'sheets'
