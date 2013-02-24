@@ -6,6 +6,19 @@
   line-height: 1.78em
   margin: 0
 
+  li.tasks-done-run
+    min-height: 49px
+    border-top: 2px dotted rgba(251, 170, 63, 0.7)
+
+    span
+      width: 26px
+      height: 26px
+      text-indent: -30000px
+      display: block
+      background: url('/assets/haken.png') 0 26px
+      float: left
+      margin: 12px 0 0 20px
+
   li.task-item
     font-family: 'Handlee', cursive;
     font-size: 1.78em
@@ -51,23 +64,3 @@
       font-size: 1.78em
       padding: 13px 20px 10px 58px
       background: rgba(255, 255, 255, 0.2)
-
-#tasks-controls
-  border-top: 2px dotted rgba(0, 0, 0, 0.3)
-  
-  #tasks-add
-    display: block
-    width: 100%
-    text-align: center
-    font-family: 'Poly', serif
-    font-size: 1.9em
-    text-decoration: none
-    padding: 20px 0
-    background: rgba(0, 0, 0, 0.18)
-
-    &:hover
-      background: rgba(0, 0, 0, 0.2)
-
-    span
-      padding-left: 34px
-      background: url('/assets/plus.png') no-repeat left 2px

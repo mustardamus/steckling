@@ -3,6 +3,7 @@ exports.routes = (app, express) ->
     'application'  # will be available as @applicationController, etc. (keep scope!)
     'test'
     'tasks'
+    'sheets'
   ]
 
   for controller in controllers
@@ -33,3 +34,19 @@ exports.routes = (app, express) ->
 
   app.delete '/tasks/:id', (req, res) =>
     @tasksController.destroy(req, res)
+
+
+  app.get '/sheets', (req, res) =>
+    @sheetsController.index(req, res)
+
+  app.post '/sheets', (req, res) =>
+    @sheetsController.create(req, res)
+
+  app.get '/sheets/:id', (req, res) =>
+    @sheetsController.read(req, res)
+
+  app.put '/sheets/:id', (req, res) =>
+    @sheetsController.update(req, res)
+
+  app.delete '/sheets/:id', (req, res) =>
+    @sheetsController.destroy(req, res)

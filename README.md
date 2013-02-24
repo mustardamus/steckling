@@ -92,3 +92,7 @@ Testing is done with Mocha and Expect, both, on the server and client side.
 Run server side test:
 
     npm test
+
+## Resources
+
+  - icons: http://brankic1979.com/icons/

@@ -7,8 +7,8 @@ procrastdo.Router = Backbone.Router.extend
     @tasksListViewl   = new procrastdo.views.tasks_list
       collection: @tasksCollection
       el        : '#tasks-list'
-    @taskControlsView = new procrastdo.views.tasks_controls
-      el        : '#tasks-controls'
+    @controlsView = new procrastdo.views.controls
+      el        : '#controls'
 
     @tasksCollection.fetch()
 
@@ -19,6 +19,7 @@ procrastdo.Router = Backbone.Router.extend
     'tasks/:id'        : 'taskRead'
     'tasks/:id/edit'   : 'taskUpdate'
     'tasks/:id/destroy': 'taskDestroy'
+    'sheets/new'       : 'sheetNew'
 
   homePage: ->
 
@@ -60,3 +61,6 @@ procrastdo.Router = Backbone.Router.extend
     task.destroy
       success: ->
         console.log 'task destroy', task
+
+  sheetNew: ->
+    console.log 'new sheet'
