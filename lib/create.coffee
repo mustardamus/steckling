@@ -36,7 +36,7 @@ exports.create_test = (name, task, log) ->
   log.info "Created Test template: ./test/server/#{name}.coffee"
 
 exports.create_ctrl = (name, task, log) ->
-  src  = "#{tmplDir}/ctrl.coffee"
+  src  = "#{tmplDir}/controller.coffee"
   dest = "#{rootDir}/app/server/controllers/#{name}.coffee"
   
   replaceInFile(src, dest, /CTRL_NAME/g, name)
