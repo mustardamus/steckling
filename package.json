@@ -10,10 +10,7 @@
     "node": "*"
   },
   "scripts"    : {
-    "init"  : "npm i -g forever && npm i -g coffee-script && npm i -g mocha",
-    "start" : "forever -c coffee -w --watchDirectory ./app/server start app/server/init.coffee",
-    "stop"  : "forever stop app/server/init.coffee",
-    "test"  : "mocha --compilers coffee:coffee-script --ui bdd --reporter spec test/server/*"
+    "start" : "node server/"
   },
 
   "dependencies": {
@@ -23,13 +20,13 @@
     "mincer"       : "*",
     "uglify-js"    : "*",
     "clean-css"    : "*",
-    "mongoose"     : "*"
+    "underscore"   : "*",
+    "request"      : "*"
   },
 
   "devDependencies": {
     "commander"    : "*",
     "logule"       : "*",
-    "forever"      : "*",
     "mocha"        : "*",
     "expect.js"    : "*"
   }
