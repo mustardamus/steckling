@@ -1,6 +1,5 @@
 log      = require('logule').init(module, 'SERVER')
 express  = require('express')
-
 mincer   = require('mincer')
 _        = require('underscore')
 

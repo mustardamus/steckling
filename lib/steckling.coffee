@@ -1,14 +1,15 @@
 _      = require('underscore')
 Server = require('./server')
-Deploy = require('./deploy')
-Fetch  = require('./fetch')
+Tasks  = require('./tasks')
 
 class Steckling
   constructor: (config) ->
-    switch _.last(process.argv)
-      when 'deploy' then new Deploy(config)
-      when 'fetch'  then new Fetch(config)
-      else               new Server(config)
+    argv = process.argv
+
+    if argv.length is 2
+      new Server(config)
+    else
+      new Tasks(config)
 
 
 module.exports = Steckling
