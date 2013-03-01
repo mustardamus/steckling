@@ -5,19 +5,24 @@ mincer = require('mincer')
 class Deploy
   constructor: (config) ->
     @env = new mincer.Environment()
+    cwd  = process.cwd()
 
-    @env.appendPath "#{__dirname}/../" #cwd
+    @env.appendPath cwd
 
     for path in config.assets
-      @env.appendPath path
-
+      @env.appendPath "#{cwd}/#{path}"
+      
     for asset, path of config.deploy
       @compileFile asset, path
-      console.log asset, path
 
-  compileFile: (asset, path) ->
-    @env.findAsset(asset).compile (err, content) ->
-      fs.writeFile path, content, ->
-        log.info asset, '-->', path
+  compileFile: (assetPath, destPath) ->
+    asset = @env.findAsset(assetPath)
+
+    if asset
+      asset.compile (err, content) ->
+        fs.writeFile destPath, content, ->
+          log.info assetPath, '-->', destPath
+    else
+      log.error 'Can not find', assetPath, 'in asset pipeline'
 
 module.exports = Deploy

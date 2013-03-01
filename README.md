@@ -1,1 +1,1 @@
-Grow your apps.
+Find e example configuration/call in steckling-plugin.

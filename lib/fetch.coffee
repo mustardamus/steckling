@@ -17,8 +17,10 @@ class Fetch
       @downloadFile url, path
 
   downloadFile: (url, path) ->
+    cwd = process.cwd()
+    
     request url, (err, res, body) ->
-      fs.writeFile path, body, ->
+      fs.writeFile "#{cwd}/#{path}", body, ->
         log.info url, '-->', path
 
 module.exports = Fetch
