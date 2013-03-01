@@ -25,6 +25,8 @@ class Server
       @env.appendPath "#{@cwd}/#{path}"
 
   setupStatics: ->
+    @app.use express.static(@cwd)
+    
     for route, folders of @opt.routes
       folders = [folders] if _.isString(folders)
 

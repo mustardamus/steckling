@@ -1,4 +1,3 @@
-_      = require('underscore')
 Server = require('./server')
 Tasks  = require('./tasks')
 

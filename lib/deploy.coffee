@@ -1,6 +1,7 @@
 fs     = require('fs')
 log    = require('logule').init(module, 'DEPLOY')
 mincer = require('mincer')
+_      = require('underscore')
 
 class Deploy
   constructor: (config) ->
@@ -12,8 +13,11 @@ class Deploy
     for path in config.assets
       @env.appendPath "#{cwd}/#{path}"
       
-    for asset, path of config.deploy
-      @compileFile asset, path
+    for asset, paths of config.deploy
+      paths = [paths] if _.isString(paths)
+
+      for path in paths
+        @compileFile asset, path
 
   compileFile: (assetPath, destPath) ->
     asset = @env.findAsset(assetPath)
