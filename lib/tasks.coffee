@@ -1,7 +1,8 @@
-fs     = require('fs')
-log    = require('logule').init(module, 'TASK')
-Deploy = require('./deploy')
-Fetch  = require('./fetch')
+fs        = require('fs')
+log       = require('logule').init(module, 'TASK')
+Deploy    = require('./deploy')
+Fetch     = require('./fetch')
+Templates = require('./templates')
 
 class Tasks
   constructor: (config) ->
@@ -11,6 +12,7 @@ class Tasks
     switch task
       when 'deploy' then new Deploy(config)
       when 'fetch'  then new Fetch(config)
+      when 'new'    then new Templates(config)
       else @findTask(task)
 
   findTask: (taskName) ->
@@ -37,5 +39,6 @@ class Tasks
           return
 
     log.error 'Unknown task', task
+
 
 module.exports = Tasks

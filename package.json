@@ -21,7 +21,9 @@
     "uglify-js"    : "*",
     "clean-css"    : "*",
     "underscore"   : "*",
-    "request"      : "*"
+    "commander"    : "*",
+    "request"      : "*",
+    "async"        : "*"
   },
 
   "devDependencies": {

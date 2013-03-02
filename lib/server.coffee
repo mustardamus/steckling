@@ -2,15 +2,13 @@ log      = require('logule').init(module, 'SERVER')
 express  = require('express')
 mincer   = require('mincer')
 _        = require('underscore')
+defaults = require('./config')
 
 class Server
-  defaults:
-    port: 8888
-
   constructor: (config) ->
     @app = express()
     @env = new mincer.Environment()
-    @opt = _.extend(@defaults, config)
+    @opt = _.extend(defaults, config)
     @cwd = process.cwd()
 
     @setupAssets()
