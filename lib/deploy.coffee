@@ -2,6 +2,7 @@ fs     = require('fs')
 log    = require('logule').init(module, 'DEPLOY')
 mincer = require('mincer')
 _      = require('underscore')
+helper = require('./helper')
 
 class Deploy
   constructor: (config) ->
@@ -17,6 +18,9 @@ class Deploy
       paths = [paths] if _.isString(paths)
 
       for path in paths
+        path = "#{cwd}/#{path}"
+        
+        helper.createPathTree(path)
         @compileFile asset, path
 
   compileFile: (assetPath, destPath) ->

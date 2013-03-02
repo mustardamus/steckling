@@ -1,6 +1,7 @@
 fs      = require('fs')
 log     = require('logule').init(module, 'FETCH')
 request = require('request')
+helper  = require('./helper')
 
 class Fetch
   constructor: (config) ->
@@ -19,12 +20,11 @@ class Fetch
 
   downloadFile: (url, path) ->
     request url, (err, res, body) =>
-      @createDir(path)
+      fullPath = "#{@cwd}/#{path}"
 
-      fs.writeFile "#{@cwd}/#{path}", body, ->
+      helper.createPathTree(fullPath)
+      fs.writeFile fullPath, body, ->
         log.info url, '-->', path
 
-  createDir: (path) ->
-    log.info  'create ', path
 
 module.exports = Fetch
