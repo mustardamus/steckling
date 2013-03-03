@@ -4,35 +4,30 @@ express  = require('express')
 mincer   = require('mincer')
 _        = require('underscore')
 markdown = require('markdown').markdown
+Pipeline = require('./pipeline')
 defaults = require('./config')
 
 class Server
   constructor: (config) ->
     @app = express()
-    @env = new mincer.Environment()
+    @env = (new Pipeline(config)).env
     @opt = _.extend(defaults, config)
     @cwd = process.cwd()
 
-    @setupAssets()
+    @app.use '/assets', mincer.createServer(@env)
+    @app.use express.static(@cwd)
+
     @setupStatics()
     @setupHelp()
-    @start()
-
-  setupAssets: ->
-    @app.use '/assets', mincer.createServer(@env)
-    @env.appendPath @cwd
-
-    for path in @opt.assets
-      @env.appendPath "#{@cwd}/#{path}"
+    @start()    
 
   setupStatics: ->
-    @app.use express.static(@cwd)
-    
-    for route, folders of @opt.routes
-      folders = [folders] if _.isString(folders)
+    if @opt.routes
+      for route, folders of @opt.routes
+        folders = [folders] if _.isString(folders)
 
-      for folder in folders
-        @app.use route, express.static("#{@cwd}/#{folder}")
+        for folder in folders
+          @app.use route, express.static("#{@cwd}/#{folder}")
 
   setupHelp: ->
     fs.readdir @cwd, (err, files) =>
