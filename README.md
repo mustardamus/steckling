@@ -125,6 +125,8 @@ And can access that bundle on:
 
 ### Tasks
 
+    node steckling.js list
+
 #### Deploy
 
 Deploy files from the asset pipeline to a single file. Config:
@@ -142,5 +144,29 @@ Run it via a task:
 This will write the compiled source code of the bundle to ./main.js
 
 #### Fetch
+
+Fetches files from the web to the disk.
+
+    var config = {
+      fetch: {
+        'http://code.jquery.com/jquery-1.9.1.min.js': 'vendor/js/jquery.js'
+      }
+    };
+
+    node steckling.js fetch
+
+### Custom tasks
+
+Custom tasks can be created in the ./tasks directory. The
+filename is the task name.
+
+    # ./tasks/hello.coffee
+
+    module.exports =
+      description: 'Prints a smiley'
+      initialize: (log, config, env) ->
+        log.info ':)'
+
+    node steckling hello
 
 ### Templates

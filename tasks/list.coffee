@@ -3,12 +3,12 @@ fs = require('fs')
 module.exports =
   description: 'List all tasks'
   initialize: (log, config, env) ->
-    @folders  = [
+    folders  = [
       __dirname
       "#{process.cwd()}/tasks"
     ]
 
-    for folder in @folders
+    for folder in folders
       continue unless fs.existsSync(folder)
       
       files = fs.readdirSync(folder)
