@@ -7,9 +7,10 @@ module.exports =
   initialize: (log, config, env) ->
     @files = config.fetch
     @cwd   = process.cwd()
+    @log   = log
 
     unless @files
-      log.info 'Nothing to fetch'
+      log.error 'Nothing to fetch'
       return
 
     @fetchFiles()
@@ -23,5 +24,5 @@ module.exports =
       fullPath = "#{@cwd}/#{path}"
 
       helper.createPathTree(fullPath)
-      fs.writeFile fullPath, body, ->
-        log.info url, '-->', path
+      fs.writeFile fullPath, body, =>
+        @log.info url, '-->', path

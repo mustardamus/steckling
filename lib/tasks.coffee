@@ -10,7 +10,7 @@ class Tasks
     @cwd      = process.cwd()
     taskName  = process.argv[2]
     @env      = (new Pipeline(config)).env
-    @folders  = [
+    @folders  = [ # extendible via config
       "#{__dirname}/../tasks"
       "#{@cwd}/tasks"
     ]

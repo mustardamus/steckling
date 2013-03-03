@@ -1,3 +1,4 @@
+###
 fs      = require('fs')
 _       = require('underscore')
 _.str   = require('underscore.string')
@@ -66,3 +67,4 @@ class Templates
 
 
 module.exports = Templates
+###
