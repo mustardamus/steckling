@@ -1,12 +1,12 @@
 fs      = require('fs')
-log     = require('logule').init(module, 'FETCH')
 request = require('request')
-helper  = require('./helper')
+helper  = require('../lib/helper')
 
-class Fetch
-  constructor: (config) ->
+module.exports =
+  description: 'Fetch assets from the web'
+  initialize: (log, config, env) ->
     @files = config.fetch
-    @cwd   = cwd = process.cwd()
+    @cwd   = process.cwd()
 
     unless @files
       log.info 'Nothing to fetch'
@@ -25,6 +25,3 @@ class Fetch
       helper.createPathTree(fullPath)
       fs.writeFile fullPath, body, ->
         log.info url, '-->', path
-
-
-module.exports = Fetch
