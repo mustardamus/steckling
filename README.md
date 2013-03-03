@@ -124,7 +124,23 @@ And can access that bundle on:
     localhost:8888/assets/src/bundle.coffee
 
 ### Tasks
+
 #### Deploy
+
+Deploy files from the asset pipeline to a single file. Config:
+
+    var config = {
+      deploy: {
+        'src/bundle.coffee': 'main.js'
+      }
+    };
+
+Run it via a task:
+
+    node steckling.js deploy
+
+This will write the compiled source code of the bundle to ./main.js
+
 #### Fetch
 
 ### Templates

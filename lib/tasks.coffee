@@ -1,44 +1,55 @@
 fs        = require('fs')
-log       = require('logule').init(module, 'TASK')
-Deploy    = require('./deploy')
-Fetch     = require('./fetch')
-Templates = require('./templates')
+logule    = require('logule')
+log       = logule.init(module, 'TASK')
+_         = require('underscore')
 
 class Tasks
   constructor: (config) ->
-    @config = config
-    task    = process.argv[2]
+    @config   = config
+    @cwd      = process.cwd()
+    taskName  = process.argv[2]
+    @folders  = [
+      "#{__dirname}/../tasks"
+      "#{@cwd}/tasks"
+    ]
 
-    switch task
-      when 'deploy' then new Deploy(config)
-      when 'fetch'  then new Fetch(config)
-      when 'new'    then new Templates(config)
-      else @findTask(task)
+    taskFile = @findTaskInFolders(taskName)
 
-  findTask: (taskName) ->
-    cwd      = process.cwd()
-    tasksDir = "#{cwd}/tasks"
+    if taskFile
+      @callTask taskName, taskFile
+    else
+      log.error 'Unknown task', taskName
 
-    if fs.existsSync(tasksDir)
-      tasks = fs.readdirSync(tasksDir)
+  findTaskInFolders: (taskName) ->
+    ret = []
 
-      for task in tasks
-        split = task.split('.')
+    for folder in @folders
+      continue unless fs.existsSync(folder)
+
+      files = fs.readdirSync(folder)
+
+      for file in files
+        split = file.split('.')
         name  = split[0]
         ext   = split[1]
 
-        if name is taskName
-          taskObj = require("#{tasksDir}/#{task}")
-          
-          if taskObj.callback
-            taskLog = require('logule').init(module, taskName.toUpperCase())
-            taskObj.callback.call @, taskLog, @config, 'env'
-          else
-            log.error 'Found task', taskName, 'but no callback in it'
+        if name and ext and ext is 'js' or ext is 'coffee'
+          if taskName is name
+            ret.push "#{folder}/#{file}"
 
-          return
+    if ret.length
+      _.last(ret)
+    else
+      false
 
-    log.error 'Unknown task', task
+  callTask: (taskName, taskPath) ->
+    task    = require(taskPath)
+    taskLog = logule.init(module, taskName.toUpperCase())
+
+    if task.initialize
+      task.initialize.apply task, [taskLog, @config, 'pipeline']
+    else
+      log.error 'Found task', taskName, 'but no initialize function'
 
 
 module.exports = Tasks
