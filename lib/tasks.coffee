@@ -2,12 +2,14 @@ fs        = require('fs')
 logule    = require('logule')
 log       = logule.init(module, 'TASK')
 _         = require('underscore')
+Pipeline  = require('./pipeline')
 
 class Tasks
   constructor: (config) ->
     @config   = config
     @cwd      = process.cwd()
     taskName  = process.argv[2]
+    @env      = (new Pipeline(config)).env
     @folders  = [
       "#{__dirname}/../tasks"
       "#{@cwd}/tasks"
@@ -47,7 +49,7 @@ class Tasks
     taskLog = logule.init(module, taskName.toUpperCase())
 
     if task.initialize
-      task.initialize.apply task, [taskLog, @config, 'pipeline']
+      task.initialize.apply task, [taskLog, @config, @env]
     else
       log.error 'Found task', taskName, 'but no initialize function'
 

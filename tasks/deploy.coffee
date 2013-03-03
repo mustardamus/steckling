@@ -7,17 +7,12 @@ module.exports =
   description: 'Deploys from the asset pipeline'
   initialize: (log, config, env) ->
     @log = log
-    @env = new mincer.Environment()
+    @env = env
     @cwd = process.cwd()
 
     if _.isEmpty(config.deploy)
       log.error 'Nothing to deploy'
       return
-
-    @env.appendPath @cwd
-
-    for path in config.assets
-      @env.appendPath "#{@cwd}/#{path}"
       
     for asset, paths of config.deploy
       paths = [paths] if _.isString(paths)
@@ -30,11 +25,10 @@ module.exports =
 
   compileFile: (assetPath, destPath) ->
     asset = @env.findAsset(assetPath)
-    log = @log
 
     if asset
-      asset.compile (err, content) ->
-        fs.writeFile destPath, content, ->
-          log.info assetPath, '-->', destPath
+      asset.compile (err, content) =>
+        fs.writeFile destPath, content, =>
+          @log.info assetPath, '-->', destPath
     else
-      log.error 'Can not find', assetPath, 'in asset pipeline'
+      @log.error 'Can not find', assetPath, 'in asset pipeline'
