@@ -73,5 +73,58 @@ Now we can access the docs/index.html like:
     localhost:8888/
 
 ### Asset pipeline
+
+The root path of steckling.js will be served as asset pipeline. Lets
+add a javascript file.
+
+    mkdir src
+    echo "console.log('home js');"> src/home.js
+
+This file is accessible on:
+
+    localhost:8888/src/home.js
+    localhost:8888/assets/src/home.js
+
+### Compile things on the asset pipeling
+
+    rm src/home.js
+    echo "console.log 'home coffee'"> src/home.coffee
+
+Uncompiled source code can be served by the static server:
+
+    localhost:8888/src/home.coffee
+
+And compiled code on the asset pipeline:
+
+    localhost:8888/assets/src/home.js
+    localhost:8888/assets/src/home.coffee
+
+### Custom asset pipeline paths
+
+    var config = {
+      assets: ['src']
+    };
+
+And a compiled src/home.coffee wil be served on:
+
+    localhost:8888/assets/home.js
+    localhost:8888/assets/home.coffee
+
+### Making use of the asset pipeline
+
+We include the home script in a bundle:
+
+    echo "#= require home"> src/bundle.coffee
+
+And can access that bundle on:
+
+    localhost:8888/assets/bundle.js
+    localhost:8888/assets/bundle.coffee
+    localhost:8888/assets/src/bundle.js
+    localhost:8888/assets/src/bundle.coffee
+
 ### Tasks
+#### Deploy
+#### Fetch
+
 ### Templates
