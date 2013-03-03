@@ -4,6 +4,7 @@ _.str   = require('underscore.string')
 log     = require('logule').init(module, 'TEMPLATE')
 program = require('commander')
 async   = require('async')
+helper  = require('./helper')
 
 class Templates
   constructor: (config) ->
@@ -25,7 +26,7 @@ class Templates
         varName = varName.split('%>')[0]
         varNames.push _.str.trim(varName)
 
-    varNames
+    _.unique(varNames)
 
   promptVariables: (varNames, callback) ->
     callbacks = []
@@ -58,6 +59,7 @@ class Templates
       tmpl = tmpl(result)
       
       # do not overwrite
+      helper.createPathTree "#{cwd}/#{dest}"
       fs.writeFileSync("#{cwd}/#{dest}", tmpl);
       log.info template, '-->', dest
       process.exit()

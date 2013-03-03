@@ -1,7 +1,9 @@
+fs       = require('fs')
 log      = require('logule').init(module, 'SERVER')
 express  = require('express')
 mincer   = require('mincer')
 _        = require('underscore')
+markdown = require('markdown').markdown
 defaults = require('./config')
 
 class Server
@@ -13,6 +15,7 @@ class Server
 
     @setupAssets()
     @setupStatics()
+    @setupHelp()
     @start()
 
   setupAssets: ->
@@ -30,6 +33,40 @@ class Server
 
       for folder in folders
         @app.use route, express.static("#{@cwd}/#{folder}")
+
+  setupHelp: ->
+    fs.readdir @cwd, (err, files) =>
+      if files.length is 1
+        @setupHelpRoute()
+
+  setupHelpRoute: ->
+    @app.get '/', (req, res) =>
+      root   = "#{__dirname}/.."
+      css    = fs.readFileSync("#{root}/vendor/css/kube.css")
+      readme = fs.readFileSync("#{root}/README.md", 'utf-8')
+      md     = markdown.toHTML(readme)
+
+      res.send """
+        <!DOCTYPE HTML>
+        <html lang="en">
+          <head>
+            <meta charset=utf-8>
+            <title>Steckling Readme</title>
+            <style type="text/css">#{css}</style>
+            <style type="text/css">
+              #wrapper {
+                margin: auto; 
+                max-width: 1000px;
+                _width: 940px;    
+              }
+              code { border: 0; }
+            </style>
+          </head>
+          <body><div id="wrapper">#{md}</div></body>
+        </html>
+      """
+
+    log.info "I am a lonely Steckling. See Readme at http://localhost:#{@opt.port}"
 
   start: ->
     @app.listen @opt.port
