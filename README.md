@@ -169,4 +169,20 @@ filename is the task name.
 
     node steckling hello
 
+### Custom global tasks
+
+You can share tasks for different stecklings by creating
+a steckling tasks directory in you $HOME. For example:
+
+    # ~/.config/steckling/tasks/gtask.coffee
+
+    module.exports =
+      description: 'A global custom task'
+      initialize: (log, config, env) ->
+        log.info 'In your home directory: .config/steckling/tasks'
+
+Can now be executed on every steckling:
+
+    node steckling gtask
+
 ### Templates

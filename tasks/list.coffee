@@ -5,12 +5,13 @@ module.exports =
   initialize: (log, config, env) ->
     folders  = [
       __dirname
+      "#{process.env['HOME']}/.config/steckling/tasks"
       "#{process.cwd()}/tasks"
     ]
-
+    
     for folder in folders
       continue unless fs.existsSync(folder)
-      
+
       files = fs.readdirSync(folder)
 
       for file in files

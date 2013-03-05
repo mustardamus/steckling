@@ -12,6 +12,7 @@ class Tasks
     @env      = (new Pipeline(config)).env
     @folders  = [ # extendible via config
       "#{__dirname}/../tasks"
+      "#{process.env['HOME']}/.config/steckling/tasks"
       "#{@cwd}/tasks"
     ]
 
