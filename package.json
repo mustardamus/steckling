@@ -10,7 +10,7 @@
     "node": "*"
   },
   "scripts"    : {
-    "start" : "node steckling.js"
+    "start": "node steckling.js"
   },
 
   "dependencies": {
@@ -24,7 +24,8 @@
     "commander"    : "*",
     "request"      : "*",
     "async"        : "*",
-    "markdown"     : "*"
+    "markdown"     : "*",
+    "mustache"     : "*"
   },
 
   "devDependencies": {
