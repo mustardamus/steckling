@@ -50,9 +50,9 @@ class Server
             <style type="text/css">#{css}</style>
             <style type="text/css">
               #wrapper {
-                margin: auto; 
-                max-width: 1000px;
-                _width: 940px;    
+                margin: 80px auto; 
+                max-width: 800px;
+                _width: 800px;    
               }
               code { border: 0; }
             </style>

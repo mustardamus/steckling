@@ -1,188 +1,145 @@
-## Grow a app
+# Steckling - Flexible Front End Dev Server
 
-### Create a steckling.js
+## Features
 
-    mkdir steckling-minimal
-    cd steckling-minimal
-    echo "require('../steckling/lib')();"> steckling.js
+- one file for configuration and invokation
+- has a extendible static file server
+- has a extendible asset pipeline
+- can execute tasks, write your own tasks
+- can fetch files from the web
+- can create files from templates via prompt
+- can deploy files from the asset pipeline
 
-### Start it
+## Install
 
-    node steckling.js
+    npm install steckling
 
-The working directory is empty. Steckling will serve
-this readme on localhost:8888 .
+## The `steckling.js` file
 
-### Using the static server
+Or name it as you want. In this file you can configure Steckling and have to invoke the module to
+make it work. The configuration only applys to the folder where `steckling.js` resides. 
 
-Thre root directory of the steckling.js will be a express
-static file server.
+A minimal setup would be:
 
-Create a direcory and a index file:
+    require('steckling')();
 
-    mkdir docs
-    echo "Documentation"> docs/index.html
+Lets start it:
 
-Then you could access the index.html file like this:
+    ❯ node steckling.js
+    22:54:02 - INFO  - SERVER - Server started on port 7777
+    22:54:02 - INFO  - SERVER - I am a lonely Steckling. See Readme at http://localhost:7777
 
-    localhost:8888/docs/index.html
-    localhost:8888/docs
+If there are no files in the current directory except `steckling.js` then this readme will be
+served on localhost. Nicely formated.
 
-Index on root level:
+## Static file server
 
-    echo "Home"> index.html
+The whole directory you started `steckling.js` on will be served as a static file server.
 
-Maps to:
+Let's create a file: `docs/index.html`
 
-    localhost:8888/index.html
-    localhost:8888/
+    <!DOCTYPE HTML>
+    <html lang="en">
+      <head>
+        <title>Docs</title>
+      </head>
+      <body>
+        ...
+      </body>
+    </html>
 
-### Steckling configuration
+Now this file now can be served on `localhost:7777/docs/index.html`. And since its a
+`index.html` also on `localhost:7777/docs`.
 
-Lets extend steckling. In the file steckling.js create a
-config object and pass it to steckling
+## Asset pipeline
 
-    var config = {
-      // configuration here
-    };
+The Steckling directory is not only a file server but also a asset pipeline which will be served on
+`localhost:7777/assets`.
+
+Let's create another file: `src/home.js`
+
+    console.log('home file');
+
+You already know that you could serve that file with the file server on `localhost:7777/src/home.js`.
+
+But we can access JS files with the asset pipeline too on `localhost:7777/assets/src/home.js`.
+
+### Compile CoffeeScript
+
+Hey, you want to write your code in CoffeeScript? Let's create another file: `src/nav.coffee`
+
+    console.log 'nav file'
+
+Now that uncompiled file can be accessed on the file server `localhost:7777/src/nav.coffee`.
+
+The compiled JavaScript is accessible on the asset pipeline. `localhost:7777/assets/src/nav.coffee`
+and `localhost:7777/assets/src/nav.js`.
+
+### Asset bundles
+
+We want to merge our two JS files together. No problem with the asset pipeline.
+
+Let's create bundle: `src/bundle.js`
+
+    //= require ./home
+    //= require ./nav
+
+Now you can access that compiled and merged bundle of `home.js` and `nav.coffee` on
+`localhost:7777/src/bundle.js`. Simple as that to structure your JS and CSS projects.
+
+## Configuration
+
+A configuration object can be passed to Steckling. Let's update `steckling.js`:
+
+    var config = {};
     require('steckling')(config);
 
-### Custom paths for the static file server
+### Add custom paths to static file server
 
-Given we have no index.html on the root path:
-
-    rm index.html
-
-And we want docs/index.html to be served when accessing:
-
-    localhost:8888/
-
-We can map the docs path to the url:
+You easily can add custom paths to the default static file server.
 
     var config = {
       routes: {
-        '/': 'docs'
+        '/'    : 'docs',             // map docs folder to root url
+        '/test': ['spec', 'specs']   // map spec and specs folder to /test path
       }
     };
 
-Now we can access the docs/index.html like:
+This would result in the following urls:
 
-    localhost:8888/docs/index.html
-    localhost:8888/docs
-    localhost:8888/index.html
-    localhost:8888/
+    localhost:777/docs/index.html
+    localhost:777/docs/
+    localhost:777/index.html
+    localhost:777/
 
-### Asset pipeline
+    localhost:777/test/index.html
+    localhost:777/test
 
-The root path of steckling.js will be served as asset pipeline. Lets
-add a javascript file.
+### Add custom paths to the asset pipeline
 
-    mkdir src
-    echo "console.log('home js');"> src/home.js
-
-This file is accessible on:
-
-    localhost:8888/src/home.js
-    localhost:8888/assets/src/home.js
-
-### Compile things on the asset pipeling
-
-    rm src/home.js
-    echo "console.log 'home coffee'"> src/home.coffee
-
-Uncompiled source code can be served by the static server:
-
-    localhost:8888/src/home.coffee
-
-And compiled code on the asset pipeline:
-
-    localhost:8888/assets/src/home.js
-    localhost:8888/assets/src/home.coffee
-
-### Custom asset pipeline paths
+You can map folders to the root url of the asset pipeline.
 
     var config = {
-      assets: ['src']
+      assets: ['src', 'vendor']
     };
 
-And a compiled src/home.coffee wil be served on:
+Would result in these urls:
 
-    localhost:8888/assets/home.js
-    localhost:8888/assets/home.coffee
+    localhost:7777/assets/src/nav.coffee
+    localhost:7777/assets/src/nav.js
+    localhost:7777/assets/nav.coffee
+    localhost:7777/assets/nav.js
 
-### Making use of the asset pipeline
+## Tasks
+### Global tasks
 
-We include the home script in a bundle:
+## Templates
+### Global templates
 
-    echo "#= require home"> src/bundle.coffee
+## Fetch
 
-And can access that bundle on:
+## Deploy
 
-    localhost:8888/assets/bundle.js
-    localhost:8888/assets/bundle.coffee
-    localhost:8888/assets/src/bundle.js
-    localhost:8888/assets/src/bundle.coffee
+## To-Do
 
-### Tasks
-
-    node steckling.js list
-
-#### Deploy
-
-Deploy files from the asset pipeline to a single file. Config:
-
-    var config = {
-      deploy: {
-        'src/bundle.coffee': 'main.js'
-      }
-    };
-
-Run it via a task:
-
-    node steckling.js deploy
-
-This will write the compiled source code of the bundle to ./main.js
-
-#### Fetch
-
-Fetches files from the web to the disk.
-
-    var config = {
-      fetch: {
-        'http://code.jquery.com/jquery-1.9.1.min.js': 'vendor/js/jquery.js'
-      }
-    };
-
-    node steckling.js fetch
-
-### Custom tasks
-
-Custom tasks can be created in the ./tasks directory. The
-filename is the task name.
-
-    # ./tasks/hello.coffee
-
-    module.exports =
-      description: 'Prints a smiley'
-      initialize: (log, config, env) ->
-        log.info ':)'
-
-    node steckling hello
-
-### Custom global tasks
-
-You can share tasks for different stecklings by creating
-a steckling tasks directory in you $HOME. For example:
-
-    # ~/.config/steckling/tasks/gtask.coffee
-
-    module.exports =
-      description: 'A global custom task'
-      initialize: (log, config, env) ->
-        log.info 'In your home directory: .config/steckling/tasks'
-
-Can now be executed on every steckling:
-
-    node steckling gtask
-
-### Templates
+- finish readme

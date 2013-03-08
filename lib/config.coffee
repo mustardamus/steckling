@@ -1,6 +1,6 @@
 module.exports =
   # port to run the development server on
-  port: 8888
+  port: 7777
 
   # directories to be exposed to the static server
   # by default all files of the root folder are served as public
