@@ -4,6 +4,7 @@
   "version"    : "0.0.1",
   "author"     : "Sebastian Senf <contact@mustardamus.com>",
   "repository" : "git://github.com/mustardamus/steckling",
+  "main"       : "./lib",
   "engines"    : {
     "npm" : "*",
     "node": "*"

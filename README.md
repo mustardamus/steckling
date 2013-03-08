@@ -12,7 +12,7 @@
 
 ## Install
 
-    npm install steckling
+    npm install steckling -g
 
 ## The `steckling.js` file
 
