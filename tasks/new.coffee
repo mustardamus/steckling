@@ -10,7 +10,7 @@ helper   = require('../lib/helper')
 module.exports =
   description: 'Create a new file from template'
   initialize: (log, config, env) ->
-    templates    = config.templates
+    @templates    = config.templates
     templateName = process.argv[3]
     @cwd         = process.cwd()
     @folders     = [
@@ -19,16 +19,26 @@ module.exports =
       "#{@cwd}/templates"
     ]
 
-    for template, dest of templates
+    for template, dest of @templates
       if template is templateName
         if _.isArray(dest)
-          for tmpl in dest
-            # async.series
-            @buildTemplate tmpl, templates[tmpl]
+          @buildTemplates dest
         else
-          @buildTemplate template, dest
+          @buildTemplate template, dest, ->
+            process.exit()
 
-  buildTemplate: (template, dest) ->
+  buildTemplates: (templates) ->
+    callbacks = []
+
+    for tmpl in templates
+      do (tmpl) =>
+        callbacks.push (cb) =>
+          @buildTemplate tmpl, @templates[tmpl], cb
+
+    async.series callbacks, ->
+      process.exit()
+
+  buildTemplate: (template, dest, callback = ->) ->
     templatePath = @getTemplatePath(template)
 
     unless templatePath
@@ -39,26 +49,25 @@ module.exports =
     templateSrc   = fs.readFileSync(templatePath, 'utf-8')
     srcVariables  = @extractVariables(templateSrc)
 
-    @promptVariables pathVariables, (data) ->
+    @promptVariables template, pathVariables, (data) ->
       fullPath = mustache.to_html(dest, data)
 
-      @promptVariables srcVariables, (data) ->
+      @promptVariables template, srcVariables, (data) ->
         content = mustache.to_html(templateSrc, data)
         
         # do not overwrite
         helper.createPathTree "#{@cwd}/#{fullPath}"
         fs.writeFileSync("#{@cwd}/#{fullPath}", content);
         log.info template, '-->', fullPath
+        callback.call @, null, true
 
-        process.exit()
-
-  promptVariables: (variables, callback) ->
+  promptVariables: (template, variables, callback) ->
     callbacks = []
 
     for varName in variables
       do (varName) ->
         callbacks.push (cb) ->
-          program.prompt "#{varName}: ", (answer) ->
+          program.prompt "#{template} - #{varName}: ", (answer) ->
             obj          = {}
             obj[varName] = answer
             cb(null, obj)
