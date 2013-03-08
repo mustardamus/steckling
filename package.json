@@ -1,10 +1,9 @@
 {
   "name"       : "steckling",
-  "description": "Grow your Apps with Steckling.",
+  "description": "Flexible Front End Dev Server",
   "version"    : "0.0.1",
   "author"     : "Sebastian Senf <contact@mustardamus.com>",
   "repository" : "git://github.com/mustardamus/steckling",
-  "bin"        : { "steckling": "./bin/steckling" },
   "engines"    : {
     "npm" : "*",
     "node": "*"
