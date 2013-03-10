@@ -19,6 +19,7 @@ class Server
 
     @setupStatics()
     @setupHelp()
+    @setupCustom()
     @start()    
 
   setupStatics: ->
@@ -62,6 +63,13 @@ class Server
       """
 
     log.info "I am a lonely Steckling. See Readme at http://localhost:#{@opt.port}"
+
+  setupCustom: ->
+    serverIndex = "#{@cwd}/server/index"
+
+    if fs.existsSync("#{serverIndex}.js") or fs.existsSync("#{serverIndex}.coffee")
+      customServer = require(serverIndex)
+      customServer.initialize(@app, @env)
 
   start: ->
     @app.listen @opt.port

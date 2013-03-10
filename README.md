@@ -14,6 +14,9 @@
 
     npm install steckling
 
+Note: Currently Steckling has no global binary file. You could clone the project and include the
+module with a relative path. See below.
+
 ## The `steckling.js` file
 
 Or name it as you want. In this file you can configure Steckling and have to invoke the module to
@@ -21,7 +24,7 @@ make it work. The configuration only applys to the folder where `steckling.js` r
 
 A minimal setup would be:
 
-    require('steckling')();
+    require('../Node/steckling/lib')();
 
 Lets start it:
 
@@ -140,6 +143,18 @@ Would result in these urls:
 
 ## Deploy
 
+## Custo Node.js server
+
+You could include your own Node.js server. Just have a `index.js` or `index.coffee` in the
+directory `server/`:
+
+    module.exports =
+      initialize: (app, env, express) ->
+        app.get '/custom', (req, res) ->
+          res.send 'route'
+
 ## To-Do
 
 - finish readme
+- write binary wrapper
+- public/
