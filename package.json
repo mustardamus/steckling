@@ -1,16 +1,14 @@
 {
   "name"       : "steckling",
   "description": "Flexible Front End Dev Server",
-  "version"    : "0.0.5",
+  "version"    : "0.0.6",
   "author"     : "Sebastian Senf <contact@mustardamus.com>",
   "repository" : "git://github.com/mustardamus/steckling",
   "main"       : "./lib/index.js",
+  "bin"        : "./bin/steckling",
   "engines"    : {
     "npm" : "*",
     "node": "*"
-  },
-  "scripts"    : {
-    "start": "node steckling.js"
   },
 
   "dependencies": {
@@ -33,5 +31,13 @@
   "devDependencies": {
     "mocha"        : "*",
     "expect.js"    : "*"
+  },
+
+  "steckling": {
+    "port": 7777,
+    "routes": {},
+    "assets": [],
+    "deploy": {},
+    "fetch": {}
   }
 }

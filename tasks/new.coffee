@@ -57,7 +57,7 @@ module.exports =
         
         # do not overwrite
         helper.createPathTree "#{@cwd}/#{fullPath}"
-        fs.writeFileSync("#{@cwd}/#{fullPath}", content);
+        fs.writeFileSync("#{@cwd}/#{fullPath}", content)
         log.info template, '-->', fullPath
         callback.call @, null, true
 
