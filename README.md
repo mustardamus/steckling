@@ -2,10 +2,9 @@
 
 ## Features
 
-- one file for configuration and invokation
-- has a extendible static file server
-- has a extendible asset pipeline
-- can execute tasks, write your own tasks
+- no configuration http server and asset pipeline
+- can execute tasks
+- write your own tasks
 - can fetch files from the web
 - can create files from templates via prompt
 - can deploy files from the asset pipeline
@@ -14,15 +13,17 @@
 
     npm install steckling
 
-## The `package.json` file
+## Start a development folder
 
+    steckling
 
-If there are no files in the current directory except `steckling.js` then this readme will be
-served on localhost. Nicely formated.
+## List all tasks
+
+    steckling list
 
 ## Static file server
 
-The whole directory you started `steckling.js` on will be served as a static file server.
+The whole directory you started steckling on will be served as a static file server.
 
 Let's create a file: `docs/index.html`
 
@@ -138,51 +139,68 @@ directory `server/`:
         app.get '/custom', (req, res) ->
           res.send 'route'
 
+
+## The `package.json` file
+
+You can overwrite/extend steckling's configuration in `package.json` like so:
+
+    {
+      "name"       : "myapp",
+      "description": "mydesc",
+      "version"    : "0.0.1",
+      "steckling": {
+        "port": 7777,
+        "routes": {},
+        "assets": [],
+        "deploy": {},
+        "fetch": {}
+      }
+    }
+
+What the different options will do:
+
+    # port to run the development server on
+    port: 7777
+
+    # directories to be exposed to the static server
+    # by default all files of the root folder are served as public
+    # 
+    # '/'    : 'docs'            # map docs folder to /
+    # '/test': ['spec', 'oth']   # map spec and test folder to /test
+    #
+    # /docs/docs.html            
+    # /docs.html
+    #
+    # /test/spec.html
+    # /spec/spec.html
+    # /oth/oth.html
+    # /test/oth.html
+    routes: {}
+
+    # directories to be compiled and served on /assets
+    # by default all files of the root folder are assets
+    # ['src', 'vendor', 'vendor/js']
+    #
+    # /assets/src/plugin.coffee
+    # /assets/plugin.coffee
+    # /asssts/plugin.js
+    #
+    # /assets/vendor/js/jquery.js
+    # /assets/vendor/jquery.js
+    # /assets/jquery.js
+    assets: []
+
+    # compile files from the asset pipeline to disk
+    # 'src/plugin.coffee'  : 'dest/plugin.js'
+    # 'vendor/js/jquery.js': ['dest/jquery.js', 'docs/js/jquery.js']
+    deploy: {}
+
+    # fetch files from url and write them to disk
+    # 'http://code.jquery.com/jquery-1.9.1.min.js': 'vendor/js/jquery.js'
+    # 'http://imperavi.com/css/kube.min.css'      : 'vendor/css/kube.css'
+    fetch: {}
+
 ## To-Do
 
 - finish readme
-- write binary wrapper
 - public/
-
-
-    module.exports =
-      # port to run the development server on
-      port: 7777
-
-      # directories to be exposed to the static server
-      # by default all files of the root folder are served as public
-      # 
-      # '/'    : 'docs'            # map docs folder to /
-      # '/test': ['spec', 'oth']   # map spec and test folder to /test
-      #
-      # /docs/docs.html            
-      # /docs.html
-      #
-      # /test/spec.html
-      # /spec/spec.html
-      # /oth/oth.html
-      # /test/oth.html
-      routes: {}
-
-      # directories to be compiled and served on /assets
-      # by default all files of the root folder are assets
-      # ['src', 'vendor', 'vendor/js']
-      #
-      # /assets/src/plugin.coffee
-      # /assets/plugin.coffee
-      # /asssts/plugin.js
-      #
-      # /assets/vendor/js/jquery.js
-      # /assets/vendor/jquery.js
-      # /assets/jquery.js
-      assets: []
-
-      # compile files from the asset pipeline to disk
-      # 'src/plugin.coffee'  : 'dest/plugin.js'
-      # 'vendor/js/jquery.js': ['dest/jquery.js', 'docs/js/jquery.js']
-      deploy: {}
-
-      # fetch files from url and write them to disk
-      # 'http://code.jquery.com/jquery-1.9.1.min.js': 'vendor/js/jquery.js'
-      # 'http://imperavi.com/css/kube.min.css'      : 'vendor/css/kube.css'
-      fetch: {}

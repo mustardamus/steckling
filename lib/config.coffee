@@ -10,12 +10,13 @@ class Config
     _.extend @config, @defaults, @custom
 
   readConfig: (packagePath) ->
-    content = fs.readFileSync(packagePath, 'utf-8')
-    obj     = JSON.parse(content)
+    if fs.existsSync(packagePath)
+      content = fs.readFileSync(packagePath, 'utf-8')
+      obj     = JSON.parse(content)
 
-    if obj.steckling
-      obj.steckling
-    else
-      {} # get away easy
+      if obj.steckling
+        obj.steckling
+      else
+        {} # get away easy
 
 module.exports = new Config
