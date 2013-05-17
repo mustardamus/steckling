@@ -32,7 +32,7 @@ class Server
 
   setupHelp: ->
     fs.readdir @cwd, (err, files) =>
-      if files.length is 1
+      if files.length is 0
         @setupHelpRoute()
 
   setupHelpRoute: ->

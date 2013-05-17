@@ -38,6 +38,10 @@
     "routes": {},
     "assets": [],
     "deploy": {},
-    "fetch": {}
+    "fetch": {},
+    "templates": {
+      "task": "tasks/{{ name }}.coffee",
+      "package": "package.json"
+    }
   }
 }

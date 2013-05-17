@@ -13,7 +13,7 @@
 
     npm install steckling
 
-## Start a development folder
+## Start a development server
 
     steckling
 
@@ -124,6 +124,9 @@ Would result in these urls:
 
 ## Templates
 ### Global templates
+
+    steckling new task         # creates a new task sceleton in ./tasks
+    steckling new package      # creates a basic package.json in ./
 
 ## Fetch
 

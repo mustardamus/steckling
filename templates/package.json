@@ -1,0 +1,29 @@
+{
+  "name"       : "{{ appName }}",
+  "version"    : "0.0.1",
+  "author"     : "{{ author }}",
+  "description": "{{ description }}",
+
+
+  "steckling": {
+
+  },
+  "main": "./lib/index.js",
+  "scripts": {
+    "start": "steckling",
+  },
+  "keywords": [
+    "node module"
+  ],
+  "dependencies" : {
+    "colors"   :  "*"
+  },
+  "devDependencies": {
+    "vows"    :  "0.5.x"
+  },
+  "license": "MIT",
+  "engines": {
+    "npm": "*",
+    "node": ">=0.6"
+  }
+}
