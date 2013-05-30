@@ -3,25 +3,25 @@
   "version"    : "0.0.1",
   "author"     : "{{ author }}",
   "description": "{{ description }}",
+  "license"    : "MIT",
 
 
   "steckling": {
-
+    "howto": "https://github.com/mustardamus/steckling"
   },
   "main": "./lib/index.js",
   "scripts": {
-    "start": "steckling",
+    "start": "steckling"
   },
   "keywords": [
-    "node module"
+    "kiss"
   ],
   "dependencies" : {
-    "colors"   :  "*"
+    "colors":  "*"
   },
   "devDependencies": {
-    "vows"    :  "0.5.x"
+    "vows":  "0.5.x"
   },
-  "license": "MIT",
   "engines": {
     "npm": "*",
     "node": ">=0.6"

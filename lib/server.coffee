@@ -16,6 +16,7 @@ class Server
 
     @app.use '/assets', mincer.createServer(@env)
     @app.use express.static(@cwd)
+    @app.use express.bodyParser()
 
     @setupStatics()
     @setupHelp()
