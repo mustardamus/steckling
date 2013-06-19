@@ -1,7 +1,7 @@
 {
   "name"       : "steckling",
   "description": "Flexible Front End Dev Server",
-  "version"    : "0.0.7",
+  "version"    : "0.0.8",
   "author"     : "Sebastian Senf <contact@mustardamus.com>",
   "repository" : "git://github.com/mustardamus/steckling",
   "main"       : "./lib/index.js",
