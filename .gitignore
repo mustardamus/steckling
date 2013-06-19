@@ -1,6 +1,5 @@
 .DS_Store
 npm-debug.log
-steckling
 
 node_modules/
 vendor/
