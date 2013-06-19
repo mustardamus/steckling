@@ -19,6 +19,7 @@
     "uglify-js"    : "*",
     "clean-css"    : "*",
     "underscore"   : "*",
+    "underscore.string": "*",
     "commander"    : "*",
     "request"      : "*",
     "async"        : "*",
